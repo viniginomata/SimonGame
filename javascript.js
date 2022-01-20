@@ -1,9 +1,13 @@
 
 let buttonColours = ["red","blue","green","yellow"];
 
-let gamePattern = []
+let gamePattern = [];
 
-let userClickedPattern = []
+let userClickedPattern = [];
+
+let levelNow = [];
+
+let level = "level " + 0 ;
 
 $(".btn").click(function(){      /* on click runs the function */
     let userChosenColour = $(this).attr("id");
@@ -20,6 +24,9 @@ $(".btn").click(function(){      /* on click runs the function */
         gamePattern.push(randomChosenColour);
         $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
         playSound(randomChosenColour)
+        
+        $("#level-title").text(level);
+
     
 
 };
@@ -36,6 +43,7 @@ $(".btn").click(function(){      /* on click runs the function */
         },100);
     }
 
-    
-
-
+    $(document).keypress(function(){
+        nextSequence();
+        $("#level-title").text(level);
+    })
