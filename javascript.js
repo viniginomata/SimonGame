@@ -5,6 +5,7 @@ let gamePattern = [];
 
 let userClickedPattern = [];
 
+let started = false ; 
 let level = 0 ;
 
 
@@ -13,9 +14,9 @@ let level = 0 ;
 $(".btn").click(function(){      /* on click runs the function */
     let userChosenColour = $(this).attr("id");
     userClickedPattern.push(userChosenColour);
-    console.log(userChosenColour);
     playSound(userChosenColour)
     animatePress(userChosenColour);
+    checkAnswer(userClickedPattern.length-1);
     
 })
 
@@ -32,19 +33,35 @@ $(".btn").click(function(){      /* on click runs the function */
 
 };
 
-    function playSound(name){
+    function playSound(name){ /* sound function */
         var audio = new Audio("sounds/"+ name + ".mp3");
         audio.play();
 }
     
-    function animatePress(currentColour){
+    function animatePress(currentColour){ /* animation function */
         $("."+currentColour).addClass("pressed")
         setTimeout(function(){
             $("."+currentColour).removeClass("pressed")
         },100);
     }
 
-    $(document).keypress(function(){
-        nextSequence();
-        $("#level-title").text("Level "+ level);
-    })
+    $(document).keypress(function(){ 
+        if (!started){
+            nextSequence();
+            $("#level-title").text("Level "+ level);
+            started=true;
+            }
+        });
+
+    
+
+    function checkAnswer(currentLevel){
+        if (userClickedPattern[currentLevel] === gamePattern[currentLevel]){
+            console.log("nice!")
+            nextSequence();
+        }else{
+            console.log("baka")
+        }
+        
+
+    }
