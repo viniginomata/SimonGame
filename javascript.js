@@ -27,6 +27,8 @@ $(".btn").click(function(){      /* on click runs the function */
         $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
         playSound(randomChosenColour);
         level++;
+        userClickedPattern = [];
+        $("#level-title").text("Level "+ level);
         
 
     
@@ -58,9 +60,14 @@ $(".btn").click(function(){      /* on click runs the function */
     function checkAnswer(currentLevel){
         if (userClickedPattern[currentLevel] === gamePattern[currentLevel]){
             console.log("nice!")
-            nextSequence();
-        }else{
-            console.log("baka")
+        }
+        if(userClickedPattern.length === gamePattern.length){
+            setTimeout(function(){
+                nextSequence();
+            }, 1000);
+        }
+        else{
+        
         }
         
 
